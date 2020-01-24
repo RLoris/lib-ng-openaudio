@@ -1,0 +1,80 @@
+
+<div style="text-align:center">
+    <h1>
+      Welcome to {{ title }}!
+    </h1>
+    <p>This project was made with &hearts; by RLoris</p>
+    <p>Use it, Share it, Improve it</p>
+  </div>
+<button style='width: 100%; height: 5vh; color: red; border: 2px solid red' (click)='playDemo()'>Click here to play DEMO track</button>
+<fieldset>
+    <legend>... or tune me the way you like it !</legend>
+    <label>Import song:</label>
+    <input type="file" style="width: 100%;"  (change)='this.loadAudioFile($event.target.files[0])' accept="audio/mp3">
+    <br>
+    <label>Import cover image:</label>
+    <input type="file" style="width: 100%;"  (change)='this.loadImageFile($event.target.files[0])' accept="image/*">
+    <br>
+    <label>Player visual style:</label>
+    <select style="width: 100%;" [(ngModel)]='this.visualStyle'>
+        <option *ngFor='let style of this.getVisualStyles()'>{{style}}</option>
+    </select>
+    <br>
+    <label>Visual container height:</label>
+    <input type='text' style="width: 100%;" [(ngModel)]='this.visualContainerHeight' placeholder="visual container height" >
+    <br>
+    <label>Accent color:</label>
+    <input type="color" style="width: 100%;" [(ngModel)]='this.myAccentColor' [style.backgroundColor]='this.myAccentColor'>
+    <br>
+    <label>Background color:</label>
+    <input type="color" style="width: 100%;" [(ngModel)]='this.myBackgroundColor' [style.backgroundColor]='this.myBackgroundColor'>
+    <br>
+    <label>Gradient bar color:</label>
+    <input type="text" style="width: 100%;" [(ngModel)]='this.myGradient'>
+    <br>
+    <label>Bar amount:</label>
+    <input type="number" style="width: 100%;" [(ngModel)]='this.barAmount'>
+    <br>
+    <label>Song name:</label>
+    <input type="text" style="width: 100%;" [(ngModel)]='this.mySongData.name'>
+    <br>
+    <label>Artist name:</label>
+    <input type="text" style="width: 100%;" [(ngModel)]='this.mySongData.artist'>
+    <br>
+    <label>Album color:</label>
+    <input type="text" style="width: 100%;" [(ngModel)]='this.mySongData.album'>
+    <br>
+    <label>Cover image url:</label>
+    <input type="text" style="width: 100%;" [(ngModel)]='this.mySongData.coverImgUrl'>
+    <br>
+    <label>Allow controls:</label>
+    <input type="checkbox" [checked]="this.playerControls" (change)="changeControls($event.target.checked)">
+    <br>
+    <label>Volume:</label>  
+    <input type="range" style="width: 100%;" max="100" min="0" [(ngModel)]='this.volume'>  
+    <br>
+    <label>Play</label>
+    <input type="checkbox" [checked]="this.playerPlaying" (change)="changePlaying($event.target.checked)">
+    <br>
+    <label>Position in seconds:</label>
+    <input type="number" style="width: 100%;" [(ngModel)]='this.currentPosition'>
+</fieldset>
+<br>
+<ng-openaudio
+    [visualContainerHeight]='this.visualContainerHeight'
+    [accentColor]='this.myAccentColor'
+    [backgroundColor]='this.myBackgroundColor'
+    [barGradient]='this.myGradient'
+    [barAmount]='this.barAmount'
+    [songData]='this.mySongData'
+    [controls]='this.playerControls'
+    [visualStyle]='this.visualStyle'
+    [volume]='this.volume'
+    [playing]='this.playerPlaying'
+    [current]='this.currentPosition'
+    (statusEvent)='this.statusEvent($event)'
+    (errorsEvent)='this.errorEvent($event)'
+>
+</ng-openaudio>
+
+<br><br>

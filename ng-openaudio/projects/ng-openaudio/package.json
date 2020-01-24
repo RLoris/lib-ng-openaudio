@@ -1,0 +1,14 @@
+{
+  "name": "ng-openaudio",
+  "author": {"name": "RLoris", "url": "https://github.com/RLoris"},
+  "description": "Openaudio is an Angular library component developped to manipulate audio source and visualize the sound",
+  "license": "MIT",
+  "keywords": ["audio", "player", "visual", "equalizer", "angular", "openaudio"],
+  "displayName": "Angular OpenAudio Library",
+  "repository": {"type": "github", "url": "https://github.com/RLoris/lib-ng-openaudio"},
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^8.2.14",
+    "@angular/core": "^8.2.14"
+  }
+}

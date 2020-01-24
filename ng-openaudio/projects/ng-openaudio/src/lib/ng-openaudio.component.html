@@ -1,0 +1,49 @@
+<div class='openaudio' [style.backgroundColor]='this.backgroundColor'>
+    <div class="data-container">
+        <img *ngIf='this.songData?.coverImgUrl' [style.borderColor]='this.accentColor' class='img-cover img-border' width="100" height="100" [src]='getCoverImg()'>
+        <div>
+            <h1 [style.color]='this.accentColor'>{{this.songData?.name}}</h1>
+            <br>
+            <h2 [style.color]='this.accentColor'>{{this.songData?.album}}</h2>
+            <br>
+            <h3 [style.color]='this.accentColor'>{{this.songData?.artist}}</h3>
+        </div>
+    </div>
+    <div class='visual-container' [style.height]='this.visualContainerHeight'>
+        <div *ngIf='isBarStyle()' [style.height]='this.visualContainerHeight' class="equalizer-container" [style.alignItems]='getVisualStyle()' (click)='this.switchStyle()'>
+            <div *ngFor='let bar of this.equalizerBar' [style.backgroundImage]='getBackgroundStyle()' [style.transitionDuration.s]='bar.transitionDuration' [style.maxHeight]='this.visualContainerHeight' [style.height.px]='bar.height'></div>
+        </div>
+        <div *ngIf='isCoverStyle()' [style.height]='this.visualContainerHeight' class="equalizer-container" (click)='this.switchStyle()'>
+            <img *ngIf='this.songData?.coverImgUrl' class='img-cover' style="height: 100%" [src]='getCoverImg()'>
+        </div>
+        <div *ngIf='isCircularStyle()' [style.height]='this.visualContainerHeight' class="equalizer-center-bar equalizer-container" (click)='this.switchStyle()'>
+            <div *ngFor='let bar of this.equalizerBar' class='equalizer-border-bar' [style.borderTopColor]='this.accentColor' [style.borderBottomColor]='this.accentColor' [style.transitionDuration.s]='bar.transitionDuration' [style.maxHeight]='this.visualContainerHeight' [style.height.px]='bar.height'>
+            </div>
+            <img *ngIf='this.songData?.coverImgUrl' class='img-foreground img-circular img-border rotate' [style.borderColor]='this.accentColor' width="200" height="200" [style.maxHeight]='this.visualContainerHeight' [style.maxWidth]='this.visualContainerHeight' [style.borderWidth.px]='this.circularStyle.height' [src]='getCoverImg()'>
+        </div>
+    </div>
+    <div [style.display]='getControlsStatus()' class="controls-container">
+        <br>
+        <div class="controls-main">
+            <button #controlsPlayPause [class]='this.btnPlayPauseClass' [style.borderLeftColor]='this.accentColor' (click)='this.switchState()'></button>
+        </div>
+        <br>
+        <div class="controls-volume-container">
+            <span style='padding-right: 15px' [style.color]='this.accentColor'>-</span><div #controlsVolumeBar class="controls-volume-bar" (click)='this.changeVolume($event)' [style.borderColor]='this.accentColor' >
+                <div class="controls-volume-bar-status" [style.width.%]='this.volume' [style.backgroundColor]='this.accentColor'>  
+                </div>
+            </div><span style='padding-left: 15px' [style.color]='this.accentColor'>+</span>
+        </div>
+        <br>
+        <span class="controls-progress-current" [style.color]='this.accentColor'>{{this.current * 1000 | date:"mm:ss"}}</span>
+        <span class="controls-progress-duration" [style.color]='this.accentColor'>{{this.duration * 1000 | date:"mm:ss"}}</span>
+        <br><br>
+        <div class="controls-progress-container">
+            <div #controlsProgressBar class="controls-progress-bar" (click)='this.changeTime($event)' [style.borderColor]='this.accentColor' >
+                <div class="controls-progress-bar-status" [style.width.%]='this.progress' [style.backgroundColor]='this.accentColor'>  
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+</div>
