@@ -50,6 +50,9 @@
     <label>Allow controls:</label>
     <input type="checkbox" [checked]="this.playerControls" (change)="changeControls($event.target.checked)">
     <br>
+    <label>Show lyrics:</label>
+    <input type="checkbox" [checked]="this.showLyrics" (change)="changeLyrics($event.target.checked)">
+    <br>
     <label>Volume:</label>  
     <input type="range" style="width: 100%;" max="100" min="0" [(ngModel)]='this.volume'>  
     <br>
@@ -72,6 +75,7 @@
     [volume]='this.volume'
     [playing]='this.playerPlaying'
     [current]='this.currentPosition'
+    [showLyrics]='this.showLyrics'
     (statusEvent)='this.statusEvent($event)'
     (errorsEvent)='this.errorEvent($event)'
 >

@@ -16,6 +16,22 @@
   padding: 3px;
 } 
 
+.lyrics-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+  overflow: auto;
+  position: absolute;
+  display: block;
+  z-index: 9999;
+}
+
+.simple-lyric {
+  font-weight: bolder;
+  margin: auto;
+  display: block;
+  padding-top: 15px;
+}
+
 .img-cover {
   float: left;
   margin-right: 15px;

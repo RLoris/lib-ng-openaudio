@@ -11,7 +11,9 @@
     "visual",
     "equalizer",
     "angular",
-    "openaudio"
+    "openaudio",
+    "karaoke",
+    "lyrics"
   ],
   "repository": {
     "type": "github",

@@ -4,6 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { EqualizerStyle } from './models/equalizer-style';
 import { SongData } from './models/song-data';
 import { StatusEvent } from './models/status-event';
+import { SyncedLyric } from './models/synced-lyric';
 
 @Component({
   selector: 'ng-openaudio',
@@ -19,6 +20,17 @@ export class NgOpenaudioComponent implements OnInit {
   public statusEmitter: EventEmitter<StatusEvent> = new EventEmitter();
 
   private statusEvent: StatusEvent = new StatusEvent();
+
+  private _showLyrics = false;
+
+  @Input()
+  public set showLyrics(v: boolean) {
+    this._showLyrics = v;
+  }
+
+  public get showLyrics() {
+    return this._showLyrics;
+  }
 
   private _controls = true;
 
@@ -243,6 +255,30 @@ export class NgOpenaudioComponent implements OnInit {
         return '';
         break;
     }
+  }
+
+  getLyrics() {
+    if(this._songData.lyrics) {
+      return this._songData.lyrics;
+    }
+  }
+
+  getLyric(value: string | SyncedLyric) {
+    if(value instanceof SyncedLyric) {
+      return value.lyric;
+    } else {
+      return value;
+    }
+  }
+
+  getLyricStyle(value: string | SyncedLyric) {
+    if(value instanceof SyncedLyric) {
+      if(this.audio.currentTime >= value.timeStart && this.audio.currentTime <= value.timeEnd) {
+        return 'block';
+      }
+      return 'none';
+    }
+    return 'block';
   }
 
   isCircularStyle() {

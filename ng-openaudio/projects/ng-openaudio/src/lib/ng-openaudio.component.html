@@ -9,17 +9,20 @@
             <h3 [style.color]='this.accentColor'>{{this.songData?.artist}}</h3>
         </div>
     </div>
-    <div class='visual-container' [style.height]='this.visualContainerHeight'>
-        <div *ngIf='isBarStyle()' [style.height]='this.visualContainerHeight' class="equalizer-container" [style.alignItems]='getVisualStyle()' (click)='this.switchStyle()'>
+    <div class='visual-container' [style.height]='this.visualContainerHeight' (click)='this.switchStyle()'>
+        <div class='lyrics-overlay' style='width: 100%; font-size: 200%;' [style.height]='this.visualContainerHeight' *ngIf='this.showLyrics'>
+            <p class='simple-lyric' [style.display]='getLyricStyle(lyric)' [style.color]='this.accentColor' *ngFor='let lyric of getLyrics()' >{{getLyric(lyric)}}</p>
+        </div>
+        <div *ngIf='isBarStyle()' [style.height]='this.visualContainerHeight' class="equalizer-container" [style.alignItems]='getVisualStyle()'>
             <div *ngFor='let bar of this.equalizerBar' [style.backgroundImage]='getBackgroundStyle()' [style.transitionDuration.s]='bar.transitionDuration' [style.maxHeight]='this.visualContainerHeight' [style.height.px]='bar.height'></div>
         </div>
-        <div *ngIf='isCoverStyle()' [style.height]='this.visualContainerHeight' class="equalizer-container" (click)='this.switchStyle()'>
+        <div *ngIf='isCoverStyle()' [style.height]='this.visualContainerHeight' class="equalizer-container" >
             <img *ngIf='this.songData?.coverImgUrl' class='img-cover' style="height: 100%" [src]='getCoverImg()'>
         </div>
-        <div *ngIf='isCircularStyle()' [style.height]='this.visualContainerHeight' class="equalizer-center-bar equalizer-container" (click)='this.switchStyle()'>
+        <div *ngIf='isCircularStyle()' [style.height]='this.visualContainerHeight' class="equalizer-center-bar equalizer-container">
             <div *ngFor='let bar of this.equalizerBar' class='equalizer-border-bar' [style.borderTopColor]='this.accentColor' [style.borderBottomColor]='this.accentColor' [style.transitionDuration.s]='bar.transitionDuration' [style.maxHeight]='this.visualContainerHeight' [style.height.px]='bar.height'>
             </div>
-            <img *ngIf='this.songData?.coverImgUrl' class='img-foreground img-circular img-border rotate' [style.borderColor]='this.accentColor' width="200" height="200" [style.maxHeight]='this.visualContainerHeight' [style.maxWidth]='this.visualContainerHeight' [style.borderWidth.px]='this.circularStyle.height' [src]='getCoverImg()'>
+            <img *ngIf='this.songData?.coverImgUrl' class='img-foreground img-circular img-border rotate' [style.borderColor]='this.accentColor' width="175" height="175" [style.maxHeight]='this.visualContainerHeight' [style.maxWidth]='this.visualContainerHeight' [style.borderWidth.px]='this.circularStyle.height' [src]='getCoverImg()'>
         </div>
     </div>
     <div [style.display]='getControlsStatus()' class="controls-container">

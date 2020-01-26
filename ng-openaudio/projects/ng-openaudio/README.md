@@ -13,7 +13,8 @@ Clone this [repo](https://github.com/RLoris/lib-ng-openaudio) and run `ng serve`
 * Visual effects based on audio source frequency (BARS, CIRCULAR)
 * Player visual controls available (Play/Pause, seek, volume, switch visual style)
 * Customize effects (gradient style, accent color, background color, bars amount)
-* Displays song cover, artist, album, name
+* Displays song cover, artist, album, name, lyrics
+* Add synced (karaoke) or simple lyrics
 
 Some audio source cannot be rendered for visualization, openaudio will still be able to play them !
 # How to use
@@ -31,6 +32,7 @@ Some audio source cannot be rendered for visualization, openaudio will still be 
     [volume]='this.volume'
     [playing]='this.playerPlaying'
     [current]='this.currentPosition'
+    [showLyrics]='this.showLyrics'
     (statusEvent)='this.statusEvent($event)'
     (errorsEvent)='this.errorEvent($event)'
 >
@@ -49,7 +51,8 @@ Some audio source cannot be rendered for visualization, openaudio will still be 
 | [visualStyle] | EqualizerStyle | Specify the visual style for the player (BARS_DOWN, BARS_UP, BARS_MIDDLE, CIRCULAR, COVER) |
 | [volume] | number | Volume of the player (min: 0, max: 100) |
 | [playing] | boolean | Specify the player status for the current song (true: play, false: pause) |
-| [current] | number | Specify the current progress position of the song
+| [current] | number | Specify the current progress position of the song |
+| [showLyrics] | boolean | Display the lyrics (synced or simple) if provided in songData |
 
 ## Outputs
 | Event | Type | Note |
@@ -64,7 +67,7 @@ Some audio source cannot be rendered for visualization, openaudio will still be 
     -   add loop/random feature
 -   add electric wave style
 -   add ring bar style
--   add lyrics karaoke style
+-   add lyrics karaoke style -> DONE
 -   add spotify support
 
 # NPM
