@@ -5,7 +5,7 @@ Openaudio is an Angular library component developped to manipulate audio source 
 
 # Demo
 
-Clone this [repo](https://github.com/RLoris/lib-ng-openaudio) and run `ng serve` for a full demo of openaudio. Angular version 8.2.14.
+Try it out here: [DEMO](https://rloris.github.io/lib-ng-openaudio/) or clone this [repo](https://github.com/RLoris/lib-ng-openaudio) and run `ng serve` for a full demo of openaudio. Angular version 8.2.14.
 
 # Features
 

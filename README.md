@@ -17,7 +17,7 @@ You can integrate openaudio in your project using `npm i ng-openaudio --save`. F
 ### Synced and Simple lyrics support
 ![Demo setup](./assets/openaudio3.PNG)
 ### Try it out
-Clone this repo and run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files. You can then test the openaudio library demo.
+Try it out here: [DEMO](https://rloris.github.io/lib-ng-openaudio/) or clone this repo and run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files. You can then test the openaudio library demo.
 
 # License
 
