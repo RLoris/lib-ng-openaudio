@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class='visual-container' [style.height]='this.visualContainerHeight' (click)='this.switchStyle()'>
-        <div class='lyrics-overlay' style='width: 100%; font-size: 200%;' [style.height]='this.visualContainerHeight' *ngIf='this.showLyrics'>
+        <div class='lyrics-overlay' [style.height]='this.visualContainerHeight' *ngIf='this.showLyrics'>
             <p class='simple-lyric' [style.display]='getLyricStyle(lyric)' [style.color]='this.accentColor' *ngFor='let lyric of getLyrics()' >{{getLyric(lyric)}}</p>
         </div>
         <div *ngIf='isBarStyle()' [style.height]='this.visualContainerHeight' class="equalizer-container" [style.alignItems]='getVisualStyle()'>
@@ -39,9 +39,9 @@
         </div>
         <br>
         <span class="controls-progress-current" [style.color]='this.accentColor'>{{this.current * 1000 | date:"mm:ss"}}</span>
-        <span class="controls-progress-duration" [style.color]='this.accentColor'>{{this.duration * 1000 | date:"mm:ss"}}</span>
+        <span class="controls-progress-duration" [style.display]="this.displaySeekBar" [style.color]='this.accentColor'>{{this.duration * 1000 | date:"mm:ss"}}</span>
         <br><br>
-        <div class="controls-progress-container">
+        <div class="controls-progress-container" [style.display]="this.displaySeekBar">
             <div #controlsProgressBar class="controls-progress-bar" (click)='this.changeTime($event)' [style.borderColor]='this.accentColor' >
                 <div class="controls-progress-bar-status" [style.width.%]='this.progress' [style.backgroundColor]='this.accentColor'>  
                 </div>

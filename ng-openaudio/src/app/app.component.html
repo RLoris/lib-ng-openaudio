@@ -1,15 +1,34 @@
-
 <div style="text-align:center">
     <h1>
       Welcome to {{ title }}!
     </h1>
     <p>This project was made with &hearts; by RLoris</p>
     <p>Use it, Share it, Improve it</p>
-  </div>
+    <b>Audio must be initiated by user, click in the window and discover !</b>
+</div>
+<br>
+<ng-openaudio *ngIf='this.displayPlayer'
+      [visualContainerHeight]='this.visualContainerHeight'
+      [accentColor]='this.myAccentColor'
+      [backgroundColor]='this.myBackgroundColor'
+      [barGradient]='this.myGradient'
+      [barAmount]='this.barAmount'
+      [songData]='this.mySongData'
+      [controls]='this.playerControls'
+      [visualStyle]='this.visualStyle'
+      [volume]='this.volume'
+      [playing]='this.playerPlaying'
+      [current]='this.currentPosition'
+      [showLyrics]='this.showLyrics'
+      (statusEvent)='this.statusEvent($event)'
+      (errorsEvent)='this.errorEvent($event)'
+  >
+</ng-openaudio>
+<br>
 <button style='width: 100%; height: 5vh; color: red; border: 2px solid red' (click)='playDemo()'>Click here to play DEMO track</button>
 <fieldset>
     <legend>... or tune me the way you like it !</legend>
-    <label>Import song:</label>
+    <label>Import local song:</label>
     <input type="file" style="width: 100%;"  (change)='this.loadAudioFile($event.target.files[0])' accept="audio/mp3">
     <br>
     <label>Import cover image:</label>
@@ -61,24 +80,9 @@
     <br>
     <label>Position in seconds:</label>
     <input type="number" style="width: 100%;" [(ngModel)]='this.currentPosition'>
+    <hr>
+    <label>Audio stream/ressource url:</label>
+    <input type="url" style="width: 100%;" placeholder='radio or audio url' [(ngModel)]='this.audioStreamUrl' >
+    <span>Sometimes CORS policies block the stream</span>
+    <button style="width: 100%;" (click)='playStream()'>Load url</button>
 </fieldset>
-<br>
-<ng-openaudio
-    [visualContainerHeight]='this.visualContainerHeight'
-    [accentColor]='this.myAccentColor'
-    [backgroundColor]='this.myBackgroundColor'
-    [barGradient]='this.myGradient'
-    [barAmount]='this.barAmount'
-    [songData]='this.mySongData'
-    [controls]='this.playerControls'
-    [visualStyle]='this.visualStyle'
-    [volume]='this.volume'
-    [playing]='this.playerPlaying'
-    [current]='this.currentPosition'
-    [showLyrics]='this.showLyrics'
-    (statusEvent)='this.statusEvent($event)'
-    (errorsEvent)='this.errorEvent($event)'
->
-</ng-openaudio>
-
-<br><br>

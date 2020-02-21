@@ -21,8 +21,18 @@ export class AppComponent {
   visualStyle: string = EqualizerStyle.CIRCULAR;
   showLyrics: boolean = true;
   mySongData = new SongData();
+  audioStreamUrl = '';
 
-  constructor() {}
+  displayPlayer = false;
+
+  constructor() {
+    // audiocontext must be initiated by user
+    let init = () => {
+      this.displayPlayer = true;
+      window.removeEventListener('pointerup', init, false);
+    };
+    window.addEventListener('pointerup', init, false);
+  }
 
   loadAudioFile(event) {
     if(event.type == 'audio/mp3') {
@@ -134,6 +144,13 @@ export class AppComponent {
 
   errorEvent($event: any) {
     console.log($event);
+  }
+
+  playStream() {
+    const s = new SongData();
+    s.audioSource = this.audioStreamUrl;
+    s.name = this.audioStreamUrl;
+    this.mySongData = s;
   }
 
 

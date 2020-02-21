@@ -63,6 +63,8 @@ export class NgOpenaudioComponent implements OnInit {
     if(v.audioSource) {
       if(this._isPlaying) {
         this.audio.pause();
+        this.btnPlayPauseClass = 'controls-play-pause';
+        this._isPlaying = false;
       }
       this.loadSound(v.audioSource);
     }
@@ -208,6 +210,7 @@ export class NgOpenaudioComponent implements OnInit {
   controlsVolumeBar: ElementRef;
 
   btnPlayPauseClass = 'controls-play-pause';
+  displaySeekBar = '';
 
   constructor(private sanitizer: DomSanitizer) {
     try {
@@ -350,6 +353,12 @@ export class NgOpenaudioComponent implements OnInit {
       this._volume = this.audio.volume * 100;
       this.audio.onloadedmetadata = (d) => {
         this.duration = this.audio.duration;
+        if(this.audio.duration + "" === 'Infinity') {
+          // disable seeking since duration is not available: streams
+          this.displaySeekBar = 'none';
+        } else {
+          this.displaySeekBar = '';
+        }
         this.triggerStatusEvent('songLoaded');
       }
       this.audio.onvolumechange = (v) => {
