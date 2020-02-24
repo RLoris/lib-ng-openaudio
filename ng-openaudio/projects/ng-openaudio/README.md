@@ -15,6 +15,7 @@ Try it out here: [DEMO](https://rloris.github.io/lib-ng-openaudio/) or clone thi
 * Customize effects (gradient style, accent color, background color, bars amount)
 * Displays song cover, artist, album, name, lyrics
 * Add synced (karaoke) or simple lyrics
+* Play audio stream (radio, podcast) 
 
 Some audio source cannot be rendered for visualization, openaudio will still be able to play them !
 # How to use
@@ -46,7 +47,7 @@ Some audio source cannot be rendered for visualization, openaudio will still be 
 | [backgroundColor] | string | Background color across the player |
 | [barGradient] | string | Gradient style for bars frequency visual |
 | [barAmount] | number | Amount of bars (min: 0, max: 96) for the bars frequency visual 
-| [songData] | SongData | Song data containing the name, album, artist, cover image and audio source |
+| [songData] | SongData | Song data containing the name, album, artist, cover image and audio source url (local or distant) |
 | [controls] | boolean | Enable/disable the visual controls for the user |
 | [visualStyle] | EqualizerStyle | Specify the visual style for the player (BARS_DOWN, BARS_UP, BARS_MIDDLE, CIRCULAR, COVER) |
 | [volume] | number | Volume of the player (min: 0, max: 100) |

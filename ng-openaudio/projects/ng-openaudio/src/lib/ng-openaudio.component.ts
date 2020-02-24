@@ -407,7 +407,7 @@ export class NgOpenaudioComponent implements OnInit {
         let h = 1;
         for(var i = 0; i < this._barAmount; i++) {
           h += this.frequency[i] % 10; 
-          this.equalizerBar[i].height = this.frequency[i];
+          this.equalizerBar[i].height = this.frequency[i] * (this._volume / 100);
           this.equalizerBar[i].transitionDuration = 0;
         }
         this.circularStyle.height = h % 25;

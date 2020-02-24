@@ -13,7 +13,9 @@
     "angular",
     "openaudio",
     "karaoke",
-    "lyrics"
+    "lyrics", 
+    "stream", 
+    "radio"
   ],
   "repository": {
     "type": "github",

@@ -17,22 +17,27 @@
 } 
 
 .lyrics-overlay {
-  background-color: rgba(0, 0, 0, 0.5);
   text-align: center;
   overflow-y: auto;
   overflow-x: hidden;
   position: absolute;
-  display: block;
+  display: flex;
   z-index: 9999;
   width: 100%;
   font-size: 200%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .simple-lyric {
+  background-color: rgba(0, 0, 0, 0.5);
   font-weight: bolder;
-  margin: auto;
-  display: inline-block;
-  padding-top: 15px;
+  display: none;
+  padding: 15px;
+  margin-top: 5px;
+  z-index: 9999;
+  border-radius: 15px;
 }
 
 .img-cover {
