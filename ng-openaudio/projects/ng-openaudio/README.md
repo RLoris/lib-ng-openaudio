@@ -5,7 +5,7 @@ Openaudio is an Angular library component developped to manipulate audio source 
 
 # Demo
 
-Try it out here: [DEMO](https://rloris.github.io/lib-ng-openaudio/) or clone this [repo](https://github.com/RLoris/lib-ng-openaudio) and run `ng serve` for a full demo of openaudio. Angular version 8.2.14.
+Try it out here: [DEMO](https://rloris.github.io/lib-ng-openaudio/) or clone this [repo](https://github.com/RLoris/lib-ng-openaudio) and run `ng serve` for a full demo of openaudio. Angular version 8.
 
 # Features
 
@@ -20,12 +20,37 @@ Try it out here: [DEMO](https://rloris.github.io/lib-ng-openaudio/) or clone thi
 Some audio source cannot be rendered for visualization, openaudio will still be able to play them !
 # How to use
 
+  First install the package with the command `npm i ng-openaudio`
+
+  Then, in your module.ts, import the library module
+
+```
+import { NgOpenaudioModule } from 'ng-openaudio';
+```
+
+  And add it to your imports modules
+
+  Then, build a songData object containing the song's name, artist, album, cover image url, audio source url, lyrics
+
+```
+// build a new SongData object
+const s = new SongData();
+s.audioSourceUrl = 'assets/UnknownBrain_Superhero.mp3';
+s.name = 'Superhero';
+s.artist = 'Unknown Brain';
+s.album = 'No Copyright Song';
+s.coverImgUrl = 'assets/ncs_superhero_cover.jpg';
+this.mySongData = s;
+// choose a visual style or leave it to default
+this.visualStyle = EqualizerStyle.CIRCULAR
+```
+you can use `<ng-openaudio></ng-openaudio>` it in any component.html
 ```
 <ng-openaudio
-    [visualContainerHeight='this.visualContainerHeight'
-    [accentColor]='this.myAccentColor'
-    [backgroundColor='this.myBackgroundColor'
-    [barGradient]='this.myGradient'
+    [visualContainerHeight]='this.vch'
+    [accentColor]='this.accColor'
+    [backgroundColor]='this.bgColor'
+    [barGradient]='this.gradient'
     [barAmount]='this.barAmount'
     [songData]='this.mySongData'
     [controls]='this.playerControls'
@@ -35,14 +60,16 @@ Some audio source cannot be rendered for visualization, openaudio will still be 
     [current]='this.currentPosition'
     [showLyrics]='this.showLyrics'
     (statusEvent)='this.statusEvent($event)'
-    (errorsEvent)='this.errorEvent($event)'
->
+    (errorsEvent)='this.errorEvent($event)'>
 </ng-openaudio>
 ```
+
+Check out the repo for a full demo code [here](https://github.com/RLoris/lib-ng-openaudio)
+
 ## Inputs
 | Property | Type | Note |
 | -------- | ---- | ---- |
-| [visualContainerHeight]| string | Height of the visual area |
+| [visualContainerHeight] | string | Height of the visual area |
 | [accentColor] | string | Accent color across the player |
 | [backgroundColor] | string | Background color across the player |
 | [barGradient] | string | Gradient style for bars frequency visual |

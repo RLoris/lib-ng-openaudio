@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { EqualizerBar } from './models/equalizer-bar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { EqualizerStyle } from './models/equalizer-style';
@@ -60,13 +60,13 @@ export class NgOpenaudioComponent implements OnInit {
   @Input()
   public set songData(v: SongData) {
     this._songData = v;
-    if(v.audioSource) {
+    if(v.audioSourceUrl) {
       if(this._isPlaying) {
         this.audio.pause();
         this.btnPlayPauseClass = 'controls-play-pause';
         this._isPlaying = false;
       }
-      this.loadSound(v.audioSource);
+      this.loadSound(v.audioSourceUrl);
     }
   }
 
@@ -201,7 +201,7 @@ export class NgOpenaudioComponent implements OnInit {
   private source: MediaElementAudioSourceNode;
   private audio: HTMLAudioElement;
   private analyser: AnalyserNode;
-  private frequency;
+  private frequency: Uint8Array;
 
   @ViewChild('controlsProgressBar', { static: true})
   controlsProgressBar: ElementRef;
@@ -212,7 +212,7 @@ export class NgOpenaudioComponent implements OnInit {
   btnPlayPauseClass = 'controls-play-pause';
   displaySeekBar = '';
 
-  constructor(private sanitizer: DomSanitizer) {
+  constructor(private sanitizer: DomSanitizer, private changeRef: ChangeDetectorRef) {
     try {
       this.context = new AudioContext();
       this.audio = new Audio();
@@ -223,15 +223,13 @@ export class NgOpenaudioComponent implements OnInit {
       for (let index = 0; index < this._barAmount; index++) {
         this.equalizerBar.push(new EqualizerBar(1));
       }
-    }
-    catch(e) {
+    }catch(e) {
       this.errorEmitter.emit(e);
       console.log('Web Audio API is not supported in this browser');
     }  
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   triggerStatusEvent(event: string) {
     this.statusEvent.event = event;
@@ -329,6 +327,7 @@ export class NgOpenaudioComponent implements OnInit {
     if(this._controls === true) {
       this.visualStyleIdx = (++this.visualStyleIdx) % this.visualStyles.length;
       this._visualStyle = this.visualStyles[this.visualStyleIdx];
+      this.changeRef.markForCheck();
     }
   }
 
@@ -339,6 +338,7 @@ export class NgOpenaudioComponent implements OnInit {
       } else {
         this.audio.play();
       }
+      this.changeRef.markForCheck();
     }
   }
 
@@ -359,10 +359,12 @@ export class NgOpenaudioComponent implements OnInit {
         } else {
           this.displaySeekBar = '';
         }
+        this.changeRef.markForCheck();
         this.triggerStatusEvent('songLoaded');
       }
       this.audio.onvolumechange = (v) => {
         this._volume = this.audio.volume * 100;
+        this.changeRef.markForCheck();
         this.triggerStatusEvent('volumeChanged');
       };
       this.audio.onended = (v) => {
@@ -370,11 +372,13 @@ export class NgOpenaudioComponent implements OnInit {
         this._current = 0;
         this.progress = 0;
         this.audio.load();
+        this.changeRef.markForCheck();
         this.triggerStatusEvent('songEnded');
       };
       this.audio.onpause = (v) => {
         this._isPlaying = !this._isPlaying;
         this.btnPlayPauseClass = 'controls-play-pause';
+        this.changeRef.markForCheck();
         clearInterval(this.intervalId);
         this.triggerStatusEvent('songPaused');
       };
@@ -418,12 +422,14 @@ export class NgOpenaudioComponent implements OnInit {
         this.circularStyle.height = 1;
         this.equalizerBar.forEach((b) => { b.transitionDuration = 2; b.height = 1; });
       }
+      this.changeRef.markForCheck();
     }
   }
 
   private updateProgress() {
     this.progress = (this.audio.currentTime / this.audio.duration) * 100;
     this._current = this.audio.currentTime;
+    this.changeRef.markForCheck();
   }
 
 
@@ -439,6 +445,7 @@ export class NgOpenaudioComponent implements OnInit {
         jumpTo = 100;
       }
       this.audio.currentTime = jumpTo * this.audio.duration;
+      this.changeRef.markForCheck();
     }
   }
 
@@ -454,6 +461,7 @@ export class NgOpenaudioComponent implements OnInit {
         volume = 100;
       }
       this.audio.volume = volume / 100;
+      this.changeRef.markForCheck();
     }
   }
 

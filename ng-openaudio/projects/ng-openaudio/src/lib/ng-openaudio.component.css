@@ -1,7 +1,4 @@
 
-.openaudio {
-}
-
 .data-container {
   padding: 20px;
   overflow: auto;
@@ -17,17 +14,20 @@
 } 
 
 .lyrics-overlay {
-  text-align: center;
   overflow-y: auto;
   overflow-x: hidden;
-  position: absolute;
   display: flex;
-  z-index: 9999;
-  width: 100%;
   font-size: 200%;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  z-index: 9999;
+  text-align: center;
 }
 
 .simple-lyric {

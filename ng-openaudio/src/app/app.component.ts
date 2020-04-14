@@ -37,7 +37,7 @@ export class AppComponent {
   loadAudioFile(event) {
     if(event.type == 'audio/mp3') {
       const s = new SongData();
-      s.audioSource = URL.createObjectURL(event);
+      s.audioSourceUrl = URL.createObjectURL(event);
       s.name = event.name;
       // default image you want
       s.coverImgUrl = 'https://images.pexels.com/photos/2746823/pexels-photo-2746823.jpeg?cs=srgb&dl=black-and-gray-vinyl-record-2746823.jpg&fm=jpg';
@@ -70,7 +70,7 @@ export class AppComponent {
 
   playDemo() {
     const s = new SongData();
-    s.audioSource = 'assets/UnknownBrain_Superhero.mp3';
+    s.audioSourceUrl = 'assets/UnknownBrain_Superhero.mp3';
     s.name = 'Superhero';
     s.artist = 'Unknown Brain';
     s.album = 'No Copyright Song';
@@ -148,7 +148,7 @@ export class AppComponent {
 
   playStream() {
     const s = new SongData();
-    s.audioSource = this.audioStreamUrl;
+    s.audioSourceUrl = this.audioStreamUrl;
     s.name = this.audioStreamUrl;
     this.mySongData = s;
   }
