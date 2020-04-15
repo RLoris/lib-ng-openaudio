@@ -2,11 +2,13 @@
     <div class="data-container">
         <img *ngIf='this.songData?.coverImgUrl' [style.borderColor]='this.accentColor' class='img-cover img-border' width="100" height="100" [src]='getCoverImg()'>
         <div>
-            <h1 [style.color]='this.accentColor'>{{this.songData?.name}}</h1>
+            <h2 [style.color]='this.accentColor'>{{this.songData?.name}}</h2>
             <br>
             <h2 [style.color]='this.accentColor'>{{this.songData?.album}}</h2>
             <br>
             <h3 [style.color]='this.accentColor'>{{this.songData?.artist}}</h3>
+            <br>
+            <h3 [style.color]='this.accentColor'>{{this.songData?.year}}</h3>
         </div>
     </div>
     <div class='visual-container' [style.height]='this.visualContainerHeight' (click)='this.switchStyle()'>
@@ -33,10 +35,11 @@
         </div>
         <br>
         <div class="controls-volume-container">
-            <span style='padding-right: 15px' [style.color]='this.accentColor'>-</span><div #controlsVolumeBar class="controls-volume-bar" (click)='this.changeVolume($event)' [style.borderColor]='this.accentColor' >
-                <div class="controls-volume-bar-status" [style.width.%]='this.volume' [style.backgroundColor]='this.accentColor'>  
-                </div>
-            </div><span style='padding-left: 15px' [style.color]='this.accentColor'>+</span>
+            <span style='padding-right: 15px' [style.color]='this.accentColor'> - </span>
+            <div #controlsVolumeBar class="controls-volume-bar" (click)='this.changeVolume($event)' [style.borderColor]='this.accentColor' >
+                <div class="controls-volume-bar-status" [style.width.%]='this.volume' [style.backgroundColor]='this.accentColor'></div>
+            </div>
+            <span style='padding-left: 15px' [style.color]='this.accentColor'> + </span>
         </div>
         <br>
         <span class="controls-progress-current" [style.color]='this.accentColor'>{{this.current * 1000 | date:"mm:ss"}}</span>

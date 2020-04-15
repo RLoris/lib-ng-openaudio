@@ -313,7 +313,7 @@ export class NgOpenaudioComponent implements OnInit {
   }
 
   getBackgroundStyle() {
-    return this.sanitizer.sanitize(SecurityContext.STYLE,this._barGradient);
+    return this.sanitizer.bypassSecurityTrustStyle(this._barGradient);
   }
 
   getControlsStatus() {
@@ -408,11 +408,14 @@ export class NgOpenaudioComponent implements OnInit {
         this.errorEmitter.emit(e);
       }
       if(this.isBarStyle() || this.isCircularStyle()) {
-        let h = 1;
+        const max = Math.max(...this.frequency);
+        this.circularStyle.height = 1;
         for(var i = 0; i < this._barAmount; i++) {
-          this.equalizerBar[i].height = (this.frequency[i] / Math.max(...this.frequency)) * 100;
+          this.circularStyle.height += this.frequency[i];
+          this.equalizerBar[i].height = (this.frequency[i] / max) * 100;
           this.equalizerBar[i].transitionDuration = 0;
         }
+        this.circularStyle.height %= 15;
         this.changeRef.detectChanges();
       }
       if(this._isPlaying === true) {

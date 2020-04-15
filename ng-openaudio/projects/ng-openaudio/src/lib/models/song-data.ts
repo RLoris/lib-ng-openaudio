@@ -4,6 +4,7 @@ export class SongData {
     name: string = '';
     artist: string = '';
     album: string = '';
+    year: string = '';
     coverImgUrl: string = null;
     lyrics: SyncedLyric[] = [];
     audioSourceUrl: string = null;

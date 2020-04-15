@@ -9,9 +9,9 @@ import { SongData, EqualizerStyle, StatusEvent } from 'projects/ng-openaudio/src
 export class AppComponent {
   title = 'ng-openaudio';
 
-  visualContainerHeight = '30vh';
-  myAccentColor = 'red';
-  myBackgroundColor = 'black';
+  visualContainerHeight = '20vh';
+  myAccentColor = 'rgb(0, 128, 255)';
+  myBackgroundColor = 'transparent';
   myGradient = 'linear-gradient(0deg, rgba(255, 255, 0, 0.719), rgba(255, 50, 0, 0.521), transparent)';
   barAmount: number = 32;
   playerControls = true;
@@ -74,6 +74,7 @@ export class AppComponent {
     s.name = 'Superhero';
     s.artist = 'Unknown Brain';
     s.album = 'No Copyright Song';
+    s.year = '2017';
     s.coverImgUrl = 'assets/ncs_superhero_cover.jpg';
     // choose between simple lyrics
     /*s.addSimpleLyrics(
