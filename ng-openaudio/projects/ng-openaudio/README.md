@@ -10,7 +10,7 @@ Try it out here: [DEMO](https://rloris.github.io/lib-ng-openaudio/) or clone thi
 # Features
 
 * Play an audio source
-* Visual effects based on audio source frequency (BARS, CIRCULAR)
+* Visual effects based on audio source frequency (BARS, CIRCULAR) Normalized
 * Player visual controls available (Play/Pause, seek, volume, switch visual style)
 * Customize effects (gradient style, accent color, background color, bars amount)
 * Displays song cover, artist, album, name, lyrics
@@ -96,7 +96,6 @@ Check out the repo for a full demo code [here](https://github.com/RLoris/lib-ng-
 -   add electric wave style
 -   add ring bar style
 -   add lyrics karaoke style -> DONE
--   add spotify support
 
 # NPM
 

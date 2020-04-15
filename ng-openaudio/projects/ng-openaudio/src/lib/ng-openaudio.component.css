@@ -59,7 +59,6 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  /**background-image: url('https://www.n2odesigns.com/wp-content/uploads/Exiled-Recordings-Hope-Cover-FINAL-e1529268400767.jpg');**/
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -92,13 +91,15 @@
 .controls-progress-bar {
   height: 10px;
   border: 1px solid;
-  width: 98%;
+  width: 95%;
+  cursor: pointer;
 }
 
 .controls-volume-bar {
   height: 10px;
   border: 1px solid;
   width: 50%;
+  cursor: pointer;
 }
 
 .controls-progress-bar-status, .controls-volume-bar-status {

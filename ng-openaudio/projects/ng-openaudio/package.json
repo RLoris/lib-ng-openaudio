@@ -6,7 +6,7 @@
   "keywords": ["audio", "player", "visual", "equalizer", "angular", "openaudio", "karaoke", "lyrics", "stream", "radio"],
   "displayName": "Angular OpenAudio Library",
   "repository": {"type": "github", "url": "https://github.com/RLoris/lib-ng-openaudio"},
-  "version": "0.0.4",
+  "version": "0.0.7",
   "peerDependencies": {
     "@angular/common": "^8.2.14",
     "@angular/core": "^8.2.14"

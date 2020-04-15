@@ -4,9 +4,9 @@ export class SongData {
     name: string = '';
     artist: string = '';
     album: string = '';
-    coverImgUrl: any = null;
+    coverImgUrl: string = null;
     lyrics: SyncedLyric[] = [];
-    audioSourceUrl: any = null;
+    audioSourceUrl: string = null;
 
     addSyncedLyric(startTime, endTime, lyric) {
         this.lyrics.push(new SyncedLyric(startTime, endTime, lyric));

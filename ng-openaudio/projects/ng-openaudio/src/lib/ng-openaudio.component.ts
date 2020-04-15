@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter, ChangeDetectorRef, SecurityContext } from '@angular/core';
 import { EqualizerBar } from './models/equalizer-bar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { EqualizerStyle } from './models/equalizer-style';
@@ -309,11 +309,11 @@ export class NgOpenaudioComponent implements OnInit {
   }
 
   getCoverImg() {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(this._songData.coverImgUrl);
+    return this.sanitizer.sanitize(SecurityContext.URL,this._songData.coverImgUrl);
   }
 
   getBackgroundStyle() {
-    return this.sanitizer.bypassSecurityTrustStyle(this._barGradient);
+    return this.sanitizer.sanitize(SecurityContext.STYLE,this._barGradient);
   }
 
   getControlsStatus() {
@@ -327,7 +327,7 @@ export class NgOpenaudioComponent implements OnInit {
     if(this._controls === true) {
       this.visualStyleIdx = (++this.visualStyleIdx) % this.visualStyles.length;
       this._visualStyle = this.visualStyles[this.visualStyleIdx];
-      this.changeRef.markForCheck();
+      this.changeRef.detectChanges();
     }
   }
 
@@ -338,7 +338,7 @@ export class NgOpenaudioComponent implements OnInit {
       } else {
         this.audio.play();
       }
-      this.changeRef.markForCheck();
+      this.changeRef.detectChanges();
     }
   }
 
@@ -348,7 +348,7 @@ export class NgOpenaudioComponent implements OnInit {
       this.audio.load();
       this.source.connect(this.analyser);
       this.analyser.connect(this.context.destination);
-      this.analyser.fftSize = 512;
+      this.analyser.fftSize = 256;
       this.frequency = new Uint8Array(this.analyser.frequencyBinCount);
       this._volume = this.audio.volume * 100;
       this.audio.onloadedmetadata = (d) => {
@@ -359,12 +359,12 @@ export class NgOpenaudioComponent implements OnInit {
         } else {
           this.displaySeekBar = '';
         }
-        this.changeRef.markForCheck();
+        this.changeRef.detectChanges();
         this.triggerStatusEvent('songLoaded');
       }
       this.audio.onvolumechange = (v) => {
         this._volume = this.audio.volume * 100;
-        this.changeRef.markForCheck();
+        this.changeRef.detectChanges();
         this.triggerStatusEvent('volumeChanged');
       };
       this.audio.onended = (v) => {
@@ -372,13 +372,13 @@ export class NgOpenaudioComponent implements OnInit {
         this._current = 0;
         this.progress = 0;
         this.audio.load();
-        this.changeRef.markForCheck();
+        this.changeRef.detectChanges();
         this.triggerStatusEvent('songEnded');
       };
       this.audio.onpause = (v) => {
         this._isPlaying = !this._isPlaying;
         this.btnPlayPauseClass = 'controls-play-pause';
-        this.changeRef.markForCheck();
+        this.changeRef.detectChanges();
         clearInterval(this.intervalId);
         this.triggerStatusEvent('songPaused');
       };
@@ -410,26 +410,25 @@ export class NgOpenaudioComponent implements OnInit {
       if(this.isBarStyle() || this.isCircularStyle()) {
         let h = 1;
         for(var i = 0; i < this._barAmount; i++) {
-          h += this.frequency[i] % 10; 
-          this.equalizerBar[i].height = this.frequency[i] * (this._volume / 100);
+          this.equalizerBar[i].height = (this.frequency[i] / Math.max(...this.frequency)) * 100;
           this.equalizerBar[i].transitionDuration = 0;
         }
-        this.circularStyle.height = h % 25;
+        this.changeRef.detectChanges();
       }
       if(this._isPlaying === true) {
         requestAnimationFrame(() => this.startAnimation());
       } else {
         this.circularStyle.height = 1;
         this.equalizerBar.forEach((b) => { b.transitionDuration = 2; b.height = 1; });
+        this.changeRef.detectChanges();
       }
-      this.changeRef.markForCheck();
     }
   }
 
   private updateProgress() {
     this.progress = (this.audio.currentTime / this.audio.duration) * 100;
     this._current = this.audio.currentTime;
-    this.changeRef.markForCheck();
+    this.changeRef.detectChanges();
   }
 
 
@@ -445,7 +444,7 @@ export class NgOpenaudioComponent implements OnInit {
         jumpTo = 100;
       }
       this.audio.currentTime = jumpTo * this.audio.duration;
-      this.changeRef.markForCheck();
+      this.changeRef.detectChanges();
     }
   }
 
@@ -461,7 +460,7 @@ export class NgOpenaudioComponent implements OnInit {
         volume = 100;
       }
       this.audio.volume = volume / 100;
-      this.changeRef.markForCheck();
+      this.changeRef.detectChanges();
     }
   }
 
